@@ -1,0 +1,31 @@
+# Python dependencies for demo_muon_chamber
+#
+# Install into a virtual environment:
+#     python3 -m venv ~/.venv/hep2
+#     ~/.venv/hep2/bin/python3 -m pip install -r requirements.txt
+#
+# NOTE: tkinter is also required but is NOT a pip package. It ships with most
+# Python builds; Homebrew's does not include it. See README.md.
+
+# --- HV power supply (CAEN DT547x over USB serial) ---
+pyserial>=3.5                       # tested with 3.5
+
+# --- User interface ---
+customtkinter>=5.2                  # tested with 6.0.0
+Pillow>=10.0                        # tested with 11.3.0
+
+# --- Camera (USB endoscope) ---
+opencv-python>=4.8                  # tested with 5.0.0.93; pulls in numpy
+
+# --- macOS only ---
+# Reads camera names from AVFoundation. Informational only: the code never
+# relies on these names to pick a camera (see the note in camera_backend.py).
+pyobjc-framework-AVFoundation>=10.0 ; sys_platform == "darwin"
+
+# --- Optional, not needed for the DT547x ---
+# CAEN HV Wrapper bindings, for SY / N1470 / DT55xx crates via the
+# "hvwrapper" backend. Requires CAEN's native library, which CAEN ships for
+# Windows and Linux only -- there is no macOS build. The DT547x family is not
+# supported by it at all, which is why this project speaks the serial
+# protocol directly. Uncomment only if you need those other crates.
+# caen-libs>=3.3.0
